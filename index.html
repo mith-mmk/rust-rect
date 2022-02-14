@@ -12,7 +12,35 @@
   <div>
     <canvas id="canvas" width="512" height="512"></canvas>
   </div>
-  <script src="./pkg/rust_rect.js" type="module"></script>
+  <script type="module">
+    import init from "./pkg/rust_rect.js";
+    init()
+      .then((wasm) => {
+        const memory = wasm.memory;
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let width = 512;
+        let height =512;
+
+        let buffersize = width * height * 4;
+        let buf = new Uint8ClampedArray(memory.buffer,wasm.get_buffer(), buffersize);
+        console.log(wasm.get_buffer());
+        let img = new ImageData(buf, width, height);
+        console.log(buf[0],buf[1],buf[2],buf[3]);
+        wasm.fillbox(buf,width,height,0);
+        ctx.putImageData(img, 0, 0);
+        console.log(buf[0],buf[1],buf[2],buf[3]);
+
+        setTimeout(function(){draw();},1);
+
+        function draw() {
+          setTimeout(function(){draw();},1);
+          wasm.fillrandomrect(buf, width, height);
+          ctx.putImageData(img, 0, 0);
+          console.log(buf[0],buf[1],buf[2],buf[3]);
+        }
+      });
+  </script>
   <span id="container"></span>
 
 </main>
