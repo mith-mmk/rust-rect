@@ -6,8 +6,6 @@ use wasm_bindgen::prelude::*;
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-const BUFFER_SIZE: usize = 2000 * 2000 * 4;
-static BUFFER: [u8; BUFFER_SIZE] = [0; BUFFER_SIZE];
 
 #[wasm_bindgen]
 extern {
