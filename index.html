@@ -13,7 +13,7 @@
     <canvas id="canvas" width="512" height="512"></canvas>
   </div>
   <script type="module">
-    import init from "./pkg/rust_rect.js";
+    import init,{Universe} from "./pkg/rust_rect.js";
     init()
       .then((wasm) => {
         const memory = wasm.memory;
@@ -21,23 +21,23 @@
         const ctx = canvas.getContext('2d');
         let width = 512;
         let height =512;
+        const universe = Universe.new(width,height);
 
         let buffersize = width * height * 4;
-        let buf = new Uint8ClampedArray(memory.buffer,wasm.get_buffer(), buffersize);
-        console.log(wasm.get_buffer());
+        let buf = new Uint8ClampedArray(memory.buffer,universe.buffer(), buffersize);
+
+        universe.fillbox(0);
         let img = new ImageData(buf, width, height);
-        console.log(buf[0],buf[1],buf[2],buf[3]);
-        wasm.fillbox(buf,width,height,0);
         ctx.putImageData(img, 0, 0);
-        console.log(buf[0],buf[1],buf[2],buf[3]);
+
+        console.log(universe.width(),universe.height());
 
         setTimeout(function(){draw();},1);
 
         function draw() {
           setTimeout(function(){draw();},1);
-          wasm.fillrandomrect(buf, width, height);
+          universe.fillrandomrect();
           ctx.putImageData(img, 0, 0);
-          console.log(buf[0],buf[1],buf[2],buf[3]);
         }
       });
   </script>
