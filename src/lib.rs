@@ -86,8 +86,8 @@ impl Universe {
 
         let startx:u32 = rand_u32(width);
         let starty:u32 = rand_u32(height);
-        let endx:u32 = rand_u32((width-startx) + 1); 
-        let endy:u32 = rand_u32((height-starty) + 1);
+        let endx:u32 = rand_u32(width-startx); 
+        let endy:u32 = rand_u32(height-starty);
         let red:u8 = rand_u32(255) as u8;
         let green:u8 = rand_u32(255) as u8;
         let blue:u8 = rand_u32(255) as u8;
