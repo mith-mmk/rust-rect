@@ -27,11 +27,9 @@
         let buffersize = width * height * 4;
         let buf = new Uint8ClampedArray(memory.buffer,universe.buffer(), buffersize);
 
-        universe.fillbox(0);
+        universe.fillbox(0xff0000);
         let img = new ImageData(buf, width, height);
         ctx.putImageData(img, 0, 0);
-
-        console.log(universe.width(),universe.height());
 
         setTimeout(function(){draw();},1);
 
