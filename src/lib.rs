@@ -60,9 +60,9 @@ impl Universe {
         let width = self.width;
         let buf = &mut self.buffer;
         // Color model u32 LE (RGBA)  -> u8 BGRA
-        let blue: u8 = ((color  >> 16) & 0xff)  as u8; // R = 1.0
+        let red: u8 = ((color  >> 16) & 0xff)  as u8; // R = 1.0
         let green: u8  = ((color >> 8) & 0xff) as u8; // G = 1.0
-        let red: u8 = ((color >> 0) & 0xff) as u8; // B = 1.0
+        let blue: u8 = ((color >> 0) & 0xff) as u8; // B = 1.0
         let alpha: u8 = 0xff;
 
         log(&format!("{} {} {}",blue,green,red));
@@ -71,9 +71,9 @@ impl Universe {
             let offset = y * width * 4;
             for x in 0..width {
                 let pos :usize = (offset + x * 4) as usize;
-                buf[pos] = blue;
+                buf[pos] = red;
                 buf[pos + 1] = green;
-                buf[pos + 2] = red;
+                buf[pos + 2] = blue;
                 buf[pos + 3] = alpha;
             }
         }
@@ -98,9 +98,9 @@ impl Universe {
             for x  in startx..endx {
                 let pos :usize= (offset + (x * 4)) as usize;
 
-                buf[pos] = blue;
+                buf[pos] = red;
                 buf[pos + 1] = green;
-                buf[pos + 2] = red;
+                buf[pos + 2] = blue;
                 buf[pos + 3] = alpha;
             }
         }
